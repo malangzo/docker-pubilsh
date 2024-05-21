@@ -3,12 +3,17 @@ const morgan = require("morgan")
 const fs = require("fs")
 const path = require("path")
 const mongoClient = require("mongodb").MongoClient
+const env = require("dotenv").config({ path:"../.env" })
 
 const app = express()
 app.use(morgan("dev"))
 
+HOST = process.env.MongoDB_Hostname
+USERNAME = process.env.MongoDB_Username
+PASSWORD = process.env.MongoDB_Password
+
 var db;
-var databaseUrl = "mongodb://54.180.29.13/:27017"
+var databaseUrl = `mongodb://${USERNAME}:${PASSWORD}@${HOST}:27017`
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + './index.html')
